@@ -1,5 +1,6 @@
 .DS_Store
 /site/accounts
 /site/config/license.php
+node_modules
 /assets/avatars
 /thumbs/*
