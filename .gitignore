@@ -1,5 +1,11 @@
 .DS_Store
+/assets/
 /site/accounts
 /site/config/license.php
+<<<<<<< HEAD
+=======
+node_modules
+>>>>>>> release/1.0.1
 /assets/avatars
 /thumbs/*
+.vscode
