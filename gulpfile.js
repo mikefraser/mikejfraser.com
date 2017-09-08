@@ -33,6 +33,7 @@ var gulp 			= require('gulp');
 var sass 			= require('gulp-sass');
 var sassGlob 		= require('gulp-sass-glob');
 var concat 			= require('gulp-concat');
+var rename 			= require('gulp-rename');
 var sourcemaps 		= require('gulp-sourcemaps');
 var gulpif 			= require('gulp-if');
 var watch 			= require('gulp-watch');
@@ -100,7 +101,7 @@ var jsPostTask = lazypipe()
 	.pipe(gulpif( deploy, jsCleanUp, jsPostProcessing ));
 
 // Tasks
-gulp.task('jsSRC', gulp.series(function() {
+gulp.task('jsSRC', function() {
 	return gulp.src([
 		path.join(config.locs.source,'**/*.js'),
 		path.join('!' + config.locs.assets,'**/*.js')
@@ -108,67 +109,116 @@ gulp.task('jsSRC', gulp.series(function() {
 	.pipe(gulpif( !deploy, jsPreProcessing() ))
 	.pipe(concat('main.js'))
 	.pipe(jsPostTask())
-	.pipe(gulp.dest( outputJS ));
-}));
+	.pipe(gulp.dest( outputJS ))
+	.pipe( browserSync.stream() );
+});
 
-gulp.task('jsAssets', gulp.series(function(done) {
+gulp.task('jsAssets', function(done) {
 	var baseloc = path.join(config.locs.assets,config.types.js);
 	var folders = getFolders( baseloc )
 
 	folders.map(function(folder) {
-		return gulp.src(path.join( baseloc, folder, '/**/*.js' ))	
+		return gulp.src( path.join( baseloc, folder, '/**/*.js' ) )	
 		.pipe(gulpif( !deploy, jsPreProcessing() ))
 		.pipe(concat(folder + '.js'))
 		.pipe(jsPostTask())
 		.pipe(gulp.dest( outputJS ));
 	 });
+	 browserSync.reload();
 	 done();
-}));
+});
 
 
 // CSS
 // ===========================
 
-var inputSCSS = path.join(config.locs.source,'**/*.scss');
-var outputCSS = path.join(config.locs.output,config.types.css);
-
-// Tasks
-gulp.task('css', gulp.series(function() {
+gulp.task('css', function() {
 	// PostCSS setup
 	var postcssStd 		= [ autoprefixer({browsers: ['last 3 version']}) ];
 	var postcssCleanUp 	= [ autoprefixer({browsers: ['last 3 version']}), cssnano() ];
-	// Find Files
-	return gulp.src(inputSCSS)
+
+	return gulp.src( path.join(config.locs.source,'**/*.scss') )
 	.pipe( gulpif( !deploy, sourcemaps.init() ))
 	.pipe( sassGlob() )
 	.pipe( sass({ "indentedSyntax": false }) )
 	.pipe( gulpif( deploy, postcss(postcssCleanUp) ))
 	.pipe( gulpif( !deploy, postcss(postcssStd) ))
 	.pipe( gulpif( !deploy, sourcemaps.write('../maps') ))
-	.pipe(gulp.dest( outputCSS ));
-}));
+	.pipe( gulp.dest( path.join(config.locs.output,config.types.css) ))
+	.pipe( browserSync.stream({match: '**/*.css'}) );
+});
+
 
 // IMG
 // ===========================
-// gulp.task('img', function() { });
+
+gulp.task('img', function() {
+	return gulp.src( path.join(config.locs.assets,config.types.img, '/**' ) )
+	.pipe( imagemin() )
+	.pipe( gulp.dest( path.join(config.locs.output,config.types.img) ))
+	.pipe( browserSync.stream() );
+});
+
 
 // SVG
 // ===========================
-// gulp.task('svg', function() { });
+
+gulp.task('svg', function(done) {
+	var baseloc = path.join(config.locs.assets,config.types.svg);
+	var folders = getFolders( baseloc )
+
+	folders.map(function(folder) {
+		return gulp.src(path.join( baseloc, folder, '/*.svg' ))	
+		.pipe( gulpif( deploy, imagemin() ))
+		.pipe( svgstore() )
+		.pipe( rename(folder + '.svg') )
+		.pipe( gulp.dest( path.join(config.locs.output,config.types.svg) ));
+	 });
+	 browserSync.reload();
+	 done();
+});
+
 
 // BROWSERSYNC
 // ===========================
-// gulp.task('sync', function() { });
+
+gulp.task('sync', function(done) {
+	browserSync.init({
+		"open": false,
+		proxy: "localhost/mikejfraser.com"
+	});
+	done();
+});
+
 
 // WATCH
 // ===========================
-// gulp.task('watch', function() { });
+
+// gulp.task('watch:js', function () {
+// 	gulp.watch( path.join(config.locs.source,'**/*.js'), 'jsSRC');
+// 	gulp.watch( path.join(config.locs.assets,'**/*.js'), 'jsAssets');
+// });
+// gulp.task('watch:css', function () {
+// 	gulp.watch( path.join(config.locs.source,'**/*.scss'), 'css');
+// });
+// gulp.task('watch:imgfiles', function () {
+// 	gulp.watch( path.join(config.locs.assets,config.types.img, '/**'), 'img');
+// 	gulp.watch( path.join(config.locs.assets,config.types.svg,'**/*.svg'), 'svg');
+// });
+
+// gulp.task('watch', gulp.parallel('watch:js','watch:css','watch:imgfiles'));
+
+gulp.task('watch', function () {
+	gulp.watch( path.join(config.locs.source,'**/*.js'), gulp.series('jsSRC'));
+	gulp.watch( path.join(config.locs.assets,'**/*.js'), gulp.series('jsAssets'));
+
+	gulp.watch( path.join(config.locs.source,'**/*.scss'), gulp.series('css'));
+
+	gulp.watch( path.join(config.locs.assets,config.types.img, '/**'), gulp.series('img'));
+	gulp.watch( path.join(config.locs.assets,config.types.svg,'**/*.svg'), gulp.series('svg'));
+});
 
 // DEFAULT
 // ===========================
-// gulp.task('default', [
-// 	'js', 
-// 	'css',
-// 	'img',
-// 	'svg',
-// ]);
+
+gulp.task('default', gulp.series('clean', gulp.parallel('jsSRC','jsAssets','css','svg','img'),'sync','watch' ));

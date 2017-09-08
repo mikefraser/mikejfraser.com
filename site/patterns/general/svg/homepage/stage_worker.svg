@@ -1,0 +1,66 @@
+<svg id="worker" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 500 400">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: none;
+      }
+
+      .cls-1 {
+        stroke: #4d4d4d;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4 {
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 4px;
+      }
+
+      .cls-2 {
+        stroke: #000;
+      }
+
+      .cls-3 {
+        fill: gray;
+        stroke: gray;
+      }
+
+      .cls-4 {
+        fill: #999;
+        stroke: #999;
+      }
+    </style>
+    <symbol id="chairSide" data-name="chairSide" viewBox="0 0 41 77">
+      <g id="rightLeg">
+        <polyline class="cls-1" points="2 75 6 36 2 2"/>
+        <polyline class="cls-1" points="6 36 37 18 39 51"/>
+      </g>
+    </symbol>
+    <symbol id="headtail" data-name="headtail" viewBox="0 0 4 24">
+      <line id="tail" class="cls-2" x1="2" y1="2" x2="2" y2="22"/>
+    </symbol>
+    <symbol id="Head" data-name="Head" viewBox="0 0 20 20">
+      <circle id="head-3" data-name="head" cx="10" cy="10" r="10"/>
+    </symbol>
+  </defs>
+  <title>stage_worker</title>
+  <g id="desk">
+    <path id="lowerlegs" class="cls-2" d="M236,261V239a1,1,0,0,0-2,0l-8,16,32-5a3,3,0,0,1,3,3v23"/>
+    <polygon id="seat" class="cls-3" points="198 260 231 279 262 261 230 242 198 260"/>
+    <polyline id="upperlegs" class="cls-2" points="234 239 226 255 258 250"/>
+    <path id="spine" class="cls-2" d="M236,200c0,10-10,11-10,55"/>
+    <g id="chair">
+      <polygon id="back" class="cls-4" points="196 242 228 261 227 245 194 226 196 242"/>
+      <use width="41" height="77.06" transform="translate(225 243)" xlink:href="#chairSide"/>
+    </g>
+    <path id="arms" class="cls-2" d="M249,205l-20,11s-2-6,2-4,15,19,15,19h4l26-6"/>
+  </g>
+  <g id="transition">
+    <use width="4" height="24" transform="translate(234 203)" xlink:href="#headtail"/>
+    <use width="4" height="24" transform="translate(234 198)" xlink:href="#headtail"/>
+  </g>
+  <g id="plane">
+    <path id="lineWing" class="cls-2" d="M236,201s-8,13-8,26H208l-15,11h87l20-5"/>
+    <path id="lineBase" class="cls-2" d="M213,243l5,18,130-35H264v-2c0-2-2-2-4-2l-19,2-9-12,4-12"/>
+  </g>
+  <use width="20" height="20" transform="translate(226 190)" xlink:href="#Head"/>
+</svg>
