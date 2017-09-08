@@ -41,7 +41,7 @@ copied to your server correctly**
 
 ### Requirements
 
-Kirby runs on PHP 5.3+, Apache or Nginx.
+Kirby runs on PHP 5.4+, Apache or Nginx.
 
 ### Download
 
@@ -53,7 +53,7 @@ from http://download.getkirby.com
 If you are familiar with Git, you can clone Kirby's
 Starterkit repository from Github.
 
-    git clone --recursive https://github.com/getkirby/plainkit.git
+    git clone https://github.com/getkirby/plainkit.git
 
 ## Documentation
 <http://getkirby.com/docs>
@@ -75,5 +75,5 @@ or send us an email: <support@getkirby.com>
 
 ## Copyright
 
-© 2009-2014 Bastian Allgeier (Bastian Allgeier GmbH)
+© 2009-2016 Bastian Allgeier (Bastian Allgeier GmbH)
 <http://getkirby.com>
