@@ -1,6 +1,8 @@
 .DS_Store
+/assets/
 /site/accounts
 /site/config/license.php
 node_modules
 /assets/avatars
 /thumbs/*
+.vscode
