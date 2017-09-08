@@ -5,6 +5,7 @@
 // Config
 // ===========================
 // Built around pattern library setup
+// MISC watch task has fudged this - locations are hardcoded at the mo
 var config = {
 	"locs": {
 	// src location:
@@ -61,7 +62,6 @@ function getFolders(dir) {
 		return fs.statSync(path.join(dir, file)).isDirectory();
 	});
 }
-
 // Is Deploy flag on?
 if (argv.deploy) {
 	var deploy = true
@@ -179,6 +179,13 @@ gulp.task('svg', function(done) {
 });
 
 
+// MISC
+// ===========================
+
+gulp.task('misc', function() {
+	browserSync.reload();
+});
+
 // BROWSERSYNC
 // ===========================
 
@@ -194,20 +201,6 @@ gulp.task('sync', function(done) {
 // WATCH
 // ===========================
 
-// gulp.task('watch:js', function () {
-// 	gulp.watch( path.join(config.locs.source,'**/*.js'), 'jsSRC');
-// 	gulp.watch( path.join(config.locs.assets,'**/*.js'), 'jsAssets');
-// });
-// gulp.task('watch:css', function () {
-// 	gulp.watch( path.join(config.locs.source,'**/*.scss'), 'css');
-// });
-// gulp.task('watch:imgfiles', function () {
-// 	gulp.watch( path.join(config.locs.assets,config.types.img, '/**'), 'img');
-// 	gulp.watch( path.join(config.locs.assets,config.types.svg,'**/*.svg'), 'svg');
-// });
-
-// gulp.task('watch', gulp.parallel('watch:js','watch:css','watch:imgfiles'));
-
 gulp.task('watch', function () {
 	gulp.watch( path.join(config.locs.source,'**/*.js'), gulp.series('jsSRC'));
 	gulp.watch( path.join(config.locs.assets,'**/*.js'), gulp.series('jsAssets'));
@@ -216,6 +209,8 @@ gulp.task('watch', function () {
 
 	gulp.watch( path.join(config.locs.assets,config.types.img, '/**'), gulp.series('img'));
 	gulp.watch( path.join(config.locs.assets,config.types.svg,'**/*.svg'), gulp.series('svg'));
+
+	gulp.watch( 'site/**/*.php', gulp.series('misc'));
 });
 
 // DEFAULT
