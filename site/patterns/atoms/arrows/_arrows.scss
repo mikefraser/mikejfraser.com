@@ -1,0 +1,108 @@
+// Arrows 
+//--------------------
+
+%ar_psdElemDefaults {
+	content: '';
+	display: block;
+	position: absolute;
+	background: currentcolor;
+	border-radius: 0.075em;
+}
+$ar_barWidth: 0.3em;
+$ar_arrSize: 	0.5em;
+
+%ar_vertBarDefaults {
+	width: $ar_barWidth;
+	top: 0;
+	bottom: 0;
+}
+
+.ar {
+	@extend %std_display_reset;
+	@extend %std_link_reset;
+	font-size: inherit;
+	position: relative;
+	display: inline-block;
+	overflow: hidden;
+
+	opacity: 0.4;
+	transition: 0.3s opacity;
+	&:hover, &:focus { 
+		opacity: 1; 
+	}
+
+	&:before, &:after {
+		@extend %ar_psdElemDefaults;
+	}
+	&:after {
+		transform: rotate(45deg);
+		width: $ar_arrSize;
+		height: $ar_arrSize;
+	}
+
+	&_dn, &_up {
+		text-align: center;
+		&:before {
+			width: 100%;
+			height: $ar_barWidth;
+		}
+		&:after {
+			left: calc( 50% - #{$ar_arrSize/2});
+		}
+	}
+
+	&_dn {
+		padding-bottom: $ar_arrSize;
+		&:before { bottom: $ar_barWidth; }
+		&:after {
+			bottom: 0.1em;
+			border-top-left-radius: 100%;
+		}
+	}
+	&_up {
+		padding-top: $ar_arrSize + 0.2em;
+		&:before { top: $ar_barWidth; }
+		&:after {
+			top: 0.1em;
+			border-bottom-right-radius: 100%;
+		}
+	}
+	&_lt, &_rt {
+		padding: $ar_arrSize ($ar_arrSize*1.5) ($ar_arrSize/2);
+		&:before {
+			@extend %ar_vertBarDefaults;
+		}
+		&:after {
+			top: calc( 50% - #{$ar_arrSize/2});
+		}
+	}
+	&_lt {
+		text-align: right;
+		&:before, &:after { right: 0; }
+	}
+	&_rt {
+		&:before, &:after { left: 0; }
+	}
+
+	// Combined L / R arrows
+	&_lr {
+		display: flex;
+		position: relative;
+		.ar {
+			width: 50%;
+			&_lt { left: $ar_barWidth/2; }
+			&_rt { right: $ar_barWidth/2; }
+		}
+		&:before {
+			@extend %ar_psdElemDefaults;
+			@extend %ar_vertBarDefaults;
+			background: hsl(0,0,57%);
+			left: calc(50% - #{$ar_barWidth/2} );
+			z-index: 5;
+			transition: 0.3s background;
+		}
+		&:hover, &:focus { 
+			&:before { background: currentcolor; }
+		}
+	}
+}

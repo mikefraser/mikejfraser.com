@@ -47,7 +47,7 @@ c::set('patterns.title', 'Patterns');
 c::set('patterns.path', 'patterns');
 c::set('patterns.directory', '/Users/Mike/Web_work/htdocs/mikejfraser.com/site/patterns');
 c::set('patterns.lock', false);
-c::set('patterns.preview.css', 'assets/css/style.css');
+c::set('patterns.preview.css', 'assets/css/styles.css');
 c::set('patterns.preview.js', 'assets/js/main.js');
 c::set('patterns.preview.background', false);
 

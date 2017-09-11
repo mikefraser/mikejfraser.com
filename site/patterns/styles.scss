@@ -1,5 +1,19 @@
 
-.textCSS {
-	display: flex;
-	color: red;
-}
+// Base scss file.
+
+// IMPORTS
+// ------------------------------------------
+
+// Use specific imports to general / scss for overall styles / helpers / global variables
+
+@import 'general/scss/functions';
+@import 'general/scss/mixins';
+@import 'general/scss/normalize';
+@import 'general/scss/fonts';
+
+// base styles / vars
+@import 'general/scss/global';
+
+// Use Globbing for pattern folders.
+
+@import 'atoms/**/*';

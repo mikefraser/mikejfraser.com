@@ -1,0 +1,49 @@
+// Site Logo 
+//--------------------
+
+.lg {
+	@extend %std_display_reset;
+	font-size: 3.25em;
+	letter-spacing: -0.02em;
+	display: inline-block;
+	margin: 0;
+
+	&_a {
+		@extend %std_link_reset;
+		display: flex;
+		
+		&:hover, &:focus {
+			span { 
+				transform: translatex(0); 
+			} 
+			.lg_l1, .lg_l2 {
+				transition: 0.5s transform 0.2s, 0.4s opacity 0.2s;
+			}
+			.lg_l2 { opacity: 1; } 
+		}
+	}
+	
+	&_wd {
+		display: flex;
+		will-change: transform;
+		transition: 0.4s transform;
+		
+		&:nth-child(2), &:nth-child(4) {
+			opacity: 0.4;
+		}
+		$wd_offset: 0, -1.23em, -1.23em, -3.84em;
+		@for $i from 2 through 4 {
+			&:nth-child( #{$i} ) { transform: translatex( nth($wd_offset, $i) ); }
+		}
+	}
+	
+	&_l2 {
+		will-change: transform, opacity;
+		opacity: 0;
+		transition: 0.5s transform, 0.5s opacity;
+		
+		@for $i from 1 through 6 {
+			&:nth-child( #{$i} ) { transform: translatex( -0.3em*$i ); }
+		}
+	}
+}

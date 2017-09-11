@@ -1,0 +1,139 @@
+
+// ===================================================
+// Global Styles
+// ===================================================
+
+
+// Variables
+// ===================================================
+
+
+// Typography
+//--------------------
+
+$fonts_base:	'CervoNeue', sans-serif;
+$fonts_display:	'CervoNeue-BlackNeue',sans-serif;
+
+
+
+
+// Distances
+//--------------------
+
+$px: 				0.0714rem; // (1/14)
+$std_vert_spacing:	1rem; // 40px / 14
+$gridSpace: 		0.5rem;
+
+$maxPageWidth: 			1200px;
+$maxColWidth: 			33.5rem;
+
+
+// COLOURS
+//--------------------
+
+$black: 		#000000;
+$white: 		#ffffff;
+$midGrey: 		#9b9b9b;
+$bodyText: 		#4a4a4a;
+$displayText: 	#323232;
+$clear: 		rgba($white, 0 );
+$whiteUnderlay:	rgba($white, 0.9 );
+$noise: 		url(http://api.thumbr.it/whitenoise-50x50.png?background=4ea6ca00&noise=ffffff&density=47&opacity=15);
+$noise2: 		url(http://api.thumbr.it/whitenoise-150x150.png?background=4ea6ca00&noise=ffffff&density=47&opacity=15);
+$noise3: 		url(http://api.thumbr.it/whitenoise-250x250.png?background=4ea6ca00&noise=ffffff&density=67&opacity=65);
+$noiseDark: 		url(http://api.thumbr.it/whitenoise-250x250.png?background=4ea6ca00&noise=000000&density=67&opacity=65);
+
+
+// MEDIA QUERY BREAKPOINTS @type Map
+$breakpoints: (
+  // Regular breakpoints
+  "babyBear": "(min-width: 500px)",
+  "mamaBear": "(min-width: 700px)",
+  "papaBear": "(min-width: 900px)",
+  
+  // Reverso breakpoints
+  "r_babyBear": "(max-width: 501px)",
+  "r_mamaBear": "(max-width: 701px)",
+  "r_papaBear": "(max-width: 901px)",
+  
+  // Exclusive breakpoints
+  "ex_babyBear": "(max-width: 501px)",
+  "ex_mamaBear": "(min-width: 500px) and (max-width: 901px)",
+  "ex_papaBear": "(min-width: 700px) and (max-width: 1281px)"
+) !default;
+
+// Enable/disable media queries @type Bool
+$MQs: true !default;
+
+// Reusable block (3 lines or more)
+// ===================================================
+
+%std_display_reset {
+	font-family: $fonts_display;
+	font-weight: normal;
+	text-transform: uppercase;
+	line-height: 1;
+	color: inherit;
+}
+
+%std_link_reset {
+	text-decoration: none;
+	color: inherit;
+	outline: none;
+}
+
+%visually_hidden {
+	position: absolute;
+	clip: rect(1px, 1px, 1px, 1px);
+	padding: 0;
+	border: 0;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+}
+
+%clear_btn_styles {
+	background: none;
+	border: none;
+// 	outline: none;
+	padding: 0;
+	cursor: pointer;
+}
+
+
+
+// Global Elements
+// ===================================================
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+html {
+	font-family: $fonts_base;
+	font-size: 14px;
+	line-height: 1.5;
+	height: 100%;
+	min-height: 100%;
+	width: 100%;
+	
+	@include bp(mamaBear) {
+		font-size: 16px;
+	}
+}
+
+body {
+// 	height: 100%;
+	min-height: 100%;
+	width: 100%;
+	margin: 0
+}
+
+img {
+	width: 100%;
+}
+
+
+
+// END
+// ===================================================

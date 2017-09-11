@@ -1,0 +1,185 @@
+// ==========================================================================
+
+// MIXINS
+
+// ==========================================================================
+
+
+
+// ===================================================
+// Media Queries
+// ===================================================
+
+// adapted from codepen / Hugo Giraundel mixin from here: http://codepen.io/chriscoyier/blog/codepens-css#media-queries
+@mixin bp($point) {
+	$query: mg($breakpoints, $point);
+	
+	@if not $query {
+		@warn "Oh shit! You are requesting an invalid breakpoint: `#{$point}`. :(";
+	}
+	
+	@else if $MQs {
+		@media #{$query} {
+			@content;
+}	}	}
+
+@mixin bpCustom($minMax,$screenWidth) {
+	@if ($MQs) {
+		@media only screen and ( #{$minMax}-width: #{$screenWidth} ) { @content; }
+	}
+}
+
+
+// ===================================================
+// Layout
+// ===================================================
+
+@mixin mainLeftColStyles {
+	width: dim( Width, Left_Col_Pc );
+	float: left;
+	margin-right: 0;
+}
+@mixin mainLeftColReset {
+	width: 100%;
+	float: none;
+}
+
+
+// ===================================================
+// Icons / Genericons
+// ===================================================
+
+
+@mixin pseudoIcon ($icon: null, $scale: 1, $beforeAfter: before) {
+	$iconSize: 16px * $scale;
+
+	&:#{$beforeAfter} {
+		@if $icon == null {}
+		@else {	@extend .genericon-#{$icon}:before; }
+		@extend .genericon;
+		width: $iconSize;
+		height: $iconSize;
+		font-size: $iconSize;
+		//line-height: $line-height;
+		//line-height: $iconSize;
+	}
+}
+
+@mixin FA_pseudoIcon ( $symbol ) {
+	font-family: FontAwesome;
+	content: mg($symbols,$symbol);
+}
+
+
+
+// ===================================================
+// Components
+// ===================================================
+
+
+// Image overlay padded text
+@mixin overlay_padded_text ( $dist, $the_color: $col_white ) {
+	display: inline;
+	background-color: $the_color;
+	box-shadow: 
+		$dist $dist 0 0 $the_color, 
+		$dist ($dist*-1) 0 0 $the_color,
+		($dist*-1) $dist 0 0 $the_color, 
+		($dist*-1) ($dist*-1) 0 0 $the_color;
+}
+
+
+// ===================================================
+// Mixins for H5BP elements
+// ===================================================
+
+
+@mixin HBP-Hidden {
+	display: none !important;
+	visibility: hidden;
+}
+@mixin HBP-V-Hidden {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+
+@mixin addClearfix {
+	&:before,
+	&:after {
+		content: " "; /* 1 */
+		display: table; /* 2 */
+	}
+
+	%clearfix:after {
+		clear: both;
+	}
+}
+
+
+
+// ===================================================
+// Typography
+// ===================================================
+
+
+// get font stack
+// -------------------------------------
+@mixin fontStack($font) {
+	font-family: unquote( mg($font,stack) );
+}
+
+// get font size / line height
+// -------------------------------------
+@mixin fontDims($sizeName, $font: $Default_Font) {
+	font-size: mgz($font,$sizeName,font-size);
+	line-height: mgz($font,$sizeName,line-height);
+}
+
+// get individual value
+// -------------------------------------
+@mixin fontValue($value, $sizeName, $font: $Default_Font) {
+	@if $value == 'font-size' {
+		#{$value}: rem(mgz($font,$sizeName,$value));
+	} @else {
+		#{$value}: mgz($font,$sizeName,$value);
+	}
+}
+
+// get size as value - has to be in form of function
+// -------------------------------------
+@function fontSize($size, $font: $Default_Font) {
+	@return mgz($font,$size,font-size);
+}
+
+
+// get weight/ other value - has to be in form of function
+// -------------------------------------
+@function fontMeta($value, $font: $Default_Font) {
+	@return mg($font,$value);
+}
+
+
+// Add Ampersand fontface stuff at start of typography section
+// -------------------------------------
+@mixin addAmpersandFontface(){
+	@font-face {
+		font-family: "Ampersand";
+		src: local("Georgia"), local("Garamond"), local("Palatino"), local("Book Antiqua");
+		unicode-range: U+0026; }
+	@font-face {
+		font-family: "Ampersand";
+		src: local("Georgia");
+		unicode-range: U+270C; }
+}
+
+
+
+// END
+// ===================================================
+
