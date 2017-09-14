@@ -1,4 +1,6 @@
-<svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 30 30" class="ic_line ic_thick">
 	<title>Pencil</title>
+	<g class="ic_line ic_thick">
 	<path d="M10 27l-6.12-6.12c-.564-.564-.88-1.327-.88-2.123V5c0-1.105.895-2 2-2h13.757c.796 0 1.56.316 2.122.88L27 10 M9 3l-.196 2.178c-.173 1.927-1.7 3.453-3.626 3.626L3 9M27 21l-9-9M21 27l-9-9"/>
+</g>
 </svg>

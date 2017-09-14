@@ -1,0 +1,39 @@
+// Site Logo
+//--------------------
+
+.ic {
+  @extend %std_link_reset;
+  //   @extend %display_Link_hover;
+  display: block;
+  padding: 0.25em;
+  margin: 0.25em;
+
+  stroke: currentcolor;
+  fill: none;
+  fill-rule: evenodd;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+
+  &_svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  &_text {
+    @extend %visually_hidden;
+  }
+
+  &-codepen,
+  &-github,
+  &-mail,
+  &-twitter {
+    stroke-width: 1;
+  }
+
+  &-pencil,
+  &-article,
+  &-coding {
+    stroke-width: 3;
+  }
+}
